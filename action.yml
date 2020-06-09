@@ -101,4 +101,4 @@ branding:
 runs:
   using: 'node12'
   main: 'lib/run.js'
-© 2020 GitHub, Inc.
+  
