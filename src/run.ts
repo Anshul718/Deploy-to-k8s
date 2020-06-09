@@ -19,6 +19,8 @@ import { deploy } from './utilities/strategy-helpers/deployment-helper';
 import { promote } from './actions/promote';
 import { reject } from './actions/reject';
 
+
+//----------------------------------------- Set Context ---------------------------------------------
 function getKubeconfig(): string {
     const method =  core.getInput('method', {required: true});
     if (method == 'kubeconfig') {
@@ -77,13 +79,14 @@ function getKubeconfig(): string {
     }
 }
 
+/*
 function getExecutableExtension(): string {
     if (os.type().match(/^Win/)) {
         return '.exe';
     }
 
     return '';
-}
+}*/
 
 async function getKubectlPath() {
     let kubectlPath = await io.which('kubectl', false);
@@ -124,7 +127,7 @@ async function run_set_context() {
 run_set_context().catch(core.setFailed);
 
 
-//create-secret
+//-------------------------------------------------- Create Secret --------------------------------------------------
 
 import fileUtility = require('./file.utility')
 
@@ -145,6 +148,7 @@ async function checkAndSetKubectlPath() {
     kubectlPath = path.join(kubectlPath, `kubectl${getExecutableExtension()}`);
 }
 
+/*
 function getExecutableExtension(): string {
     if (os.type().match(/^Win/)) {
         return '.exe';
@@ -152,6 +156,7 @@ function getExecutableExtension(): string {
 
     return '';
 }
+*/
 
 async function createSecret() {
     const typeOfSecret = core.getInput('secret-type', { required: true });
@@ -267,9 +272,9 @@ async function run_create_secret() {
 run_create_secret().catch(core.setFailed);
 
 
-//deploy
+//--------------------------------------------------- Deploy ------------------------------------------------------------
 
-let kubectlPath = "";
+kubectlPath = "";
 
 async function setKubectlPath() {
     if (core.getInput('kubectl-version')) {
@@ -298,11 +303,13 @@ async function installKubectl(version: string) {
     return await downloadKubectl(version);
 }
 
+/*
 function checkClusterContext() {
     if (!process.env["KUBECONFIG"]) {
         throw new Error('Cluster context not set. Use k8ssetcontext action to set cluster context');
     }
 }
+*/
 
 export async function run_deploy() {
     checkClusterContext();
