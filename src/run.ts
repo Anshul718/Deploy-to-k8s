@@ -125,6 +125,7 @@ async function run_set_context() {
     if (!process.env["KUBECONFIG"]) {
         throw new Error('Cluster context not set. Use k8s-set-context/aks-set-context action to set cluster context');
     }
+    console.log('1');
 }
 
 //run_set_context().catch(core.setFailed);
@@ -270,6 +271,7 @@ async function run_create_secret() {
     checkClusterContext();
     await checkAndSetKubectlPath();
     await createSecret();
+    console.log('2');
 }
 
 //run_create_secret().catch(core.setFailed);
@@ -351,6 +353,7 @@ async function run(){
     await run_set_context().catch(core.setFailed);
     await run_create_secret().catch(core.setFailed);
     await run_deploy().catch(core.setFailed);
+    console.log('3');
 }
 
 run().catch(core.setFailed);
