@@ -302,14 +302,6 @@ async function installKubectl(version: string) {
     return await downloadKubectl(version);
 }
 
-/*
-function checkClusterContext() {
-    if (!process.env["KUBECONFIG"]) {
-        throw new Error('Cluster context not set. Use k8ssetcontext action to set cluster context');
-    }
-}
-*/
-
 export async function run_deploy() {
     checkClusterContext();
     await setKubectlPath();
@@ -341,14 +333,12 @@ export async function run_deploy() {
     }
 }
 
-//run_deploy().catch(core.setFailed);
-
 async function run(){
     console.log('Starting the run function')
-    run_set_context().catch(core.setFailed);
-    console.log('Finished setc context function')
-    run_create_secret().catch(core.setFailed);
-    run_deploy().catch(core.setFailed);
+    await run_set_context().catch(core.setFailed);
+    console.log('Finished set context function')
+    await run_create_secret().catch(core.setFailed);
+    await run_deploy().catch(core.setFailed);
 }
 
 run().catch(core.setFailed);
