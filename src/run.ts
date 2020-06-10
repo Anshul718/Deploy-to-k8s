@@ -78,7 +78,6 @@ function getKubeconfig(): string {
         throw Error("Invalid method specified. Acceptable values are kubeconfig and service-account.");
     }
 }
-
 /*
 function getExecutableExtension(): string {
     if (os.type().match(/^Win/)) {
@@ -86,8 +85,8 @@ function getExecutableExtension(): string {
     }
 
     return '';
-}*/
-
+}
+*/
 async function getKubectlPath() {
     let kubectlPath = await io.which('kubectl', false);
     if (!kubectlPath) {
@@ -122,9 +121,6 @@ async function run_set_context() {
     issueCommand('set-env', { name: 'KUBECONFIG' }, kubeconfigPath);
     console.log('KUBECONFIG environment variable is set');
     await setContext();
-    if (!process.env["KUBECONFIG"]) {
-        throw new Error('Cluster context not set. Use k8s-set-context/aks-set-context action to set cluster context');
-    }
     console.log('1');
 }
 
