@@ -346,10 +346,17 @@ export async function run_deploy() {
 
 //run_deploy().catch(core.setFailed);
 
+function delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
+}
+
 async function run(){
-    run_set_context().catch(core.setFailed);
-    run_create_secret().catch(core.setFailed);
-    run_deploy().catch(core.setFailed);
+    await run_set_context().catch(core.setFailed);
+    console.log('wait start');
+    await delay(300);
+    console.log('wait end');
+    await run_create_secret().catch(core.setFailed);
+    await run_deploy().catch(core.setFailed);
     console.log('3');
 }
 
