@@ -124,7 +124,7 @@ async function run_set_context() {
     await setContext();
 }
 
-run_set_context().catch(core.setFailed);
+//run_set_context().catch(core.setFailed);
 
 
 //-------------------------------------------------- Create Secret --------------------------------------------------
@@ -264,12 +264,12 @@ function checkClusterContext() {
 }
 
 async function run_create_secret() {
-    //checkClusterContext();
+    checkClusterContext();
     await checkAndSetKubectlPath();
     await createSecret();
 }
 
-run_create_secret().catch(core.setFailed);
+//run_create_secret().catch(core.setFailed);
 
 
 //--------------------------------------------------- Deploy ------------------------------------------------------------
@@ -342,4 +342,12 @@ export async function run_deploy() {
     }
 }
 
-run_deploy().catch(core.setFailed);
+//run_deploy().catch(core.setFailed);
+
+async function run(){
+    await run_set_context().catch(core.setFailed);
+    await run_create_secret().catch(core.setFailed);
+    await run_deploy().catch(core.setFailed);
+}
+
+run().catch(core.setFailed);
