@@ -77,15 +77,7 @@ function getKubeconfig(): string {
         throw Error("Invalid method specified. Acceptable values are kubeconfig and service-account.");
     }
 }
-/*
-function getExecutableExtension(): string {
-    if (os.type().match(/^Win/)) {
-        return '.exe';
-    }
 
-    return '';
-}
-*/
 async function getKubectlPath() {
     let kubectlPath = await io.which('kubectl', false);
     if (!kubectlPath) {
@@ -143,16 +135,6 @@ async function checkAndSetKubectlPath() {
 
     kubectlPath = path.join(kubectlPath, `kubectl${getExecutableExtension()}`);
 }
-
-/*
-function getExecutableExtension(): string {
-    if (os.type().match(/^Win/)) {
-        return '.exe';
-    }
-
-    return '';
-}
-*/
 
 async function createSecret() {
     const typeOfSecret = core.getInput('secret-type', { required: true });
@@ -263,7 +245,6 @@ async function run_create_secret() {
     checkClusterContext();
     await checkAndSetKubectlPath();
     await createSecret();
-    console.log('2');
 }
 
 //run_create_secret().catch(core.setFailed);
@@ -332,7 +313,6 @@ export async function run_deploy() {
 }
 
 async function run(){
-    console.log('Starting the run function')
     await run_set_context().catch(core.setFailed);
     await run_create_secret().catch(core.setFailed);
     await run_deploy().catch(core.setFailed);
