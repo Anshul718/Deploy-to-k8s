@@ -25,7 +25,6 @@ function getKubeconfig(): string {
     const method =  core.getInput('method', {required: true});
     if (method == 'kubeconfig') {
         const kubeconfig = core.getInput('kubeconfig', {required : true});
-        core.debug("Setting context using kubeconfig");
         return kubeconfig;
     }
     else if (method == 'service-account') {
@@ -118,10 +117,10 @@ async function run_set_context() {
     const kubeconfigPath = path.join(runnerTempDirectory, `kubeconfig_${Date.now()}`);
     core.debug(`Writing kubeconfig contents to ${kubeconfigPath}`);
     fs.writeFileSync(kubeconfigPath, kubeconfig);
-    issueCommand('set-env', { name: 'KUBECONFIG' }, kubeconfigPath);
+    core.exportVariable('KUBECONFIG', kubeconfigPath);
+    //issueCommand('set-env', { name: 'KUBECONFIG' }, kubeconfigPath);
     console.log('KUBECONFIG environment variable is set');
     await setContext();
-    console.log('1');
 }
 
 //-------------------------------------------------- Create Secret --------------------------------------------------
@@ -255,9 +254,7 @@ export function fromLiteralsToFromFile(secretArguments: string): string {
 }
 
 function checkClusterContext() {
-    console.log('Printing environment variables')
-    console.log(process.env);
-    if (!process.env["INPUT_KUBECONFIG"]) {
+    if (!process.env["KUBECONFIG"]) {
         throw new Error('Cluster context not set. Use k8s-set-context/aks-set-context action to set cluster context');
     }
 }
@@ -337,7 +334,6 @@ export async function run_deploy() {
 async function run(){
     console.log('Starting the run function')
     await run_set_context().catch(core.setFailed);
-    console.log('Finished set context function')
     await run_create_secret().catch(core.setFailed);
     await run_deploy().catch(core.setFailed);
 }
