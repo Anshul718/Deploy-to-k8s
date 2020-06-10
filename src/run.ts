@@ -264,7 +264,7 @@ function checkClusterContext() {
 }
 
 async function run_create_secret() {
-    checkClusterContext();
+    //checkClusterContext();
     await checkAndSetKubectlPath();
     await createSecret();
 }
