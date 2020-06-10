@@ -124,9 +124,6 @@ async function run_set_context() {
     console.log('1');
 }
 
-//run_set_context().catch(core.setFailed);
-
-
 //-------------------------------------------------- Create Secret --------------------------------------------------
 
 import fileUtility = require('./file.utility')
@@ -258,8 +255,9 @@ export function fromLiteralsToFromFile(secretArguments: string): string {
 }
 
 function checkClusterContext() {
-    console.log('check context');
-    if (!process.env["KUBECONFIG"]) {
+    console.log('Printing environment variables')
+    console.log(process.env);
+    if (!process.env["INPUT_KUBECONFIG"]) {
         throw new Error('Cluster context not set. Use k8s-set-context/aks-set-context action to set cluster context');
     }
 }
@@ -305,14 +303,6 @@ async function installKubectl(version: string) {
     return await downloadKubectl(version);
 }
 
-/*
-function checkClusterContext() {
-    if (!process.env["KUBECONFIG"]) {
-        throw new Error('Cluster context not set. Use k8ssetcontext action to set cluster context');
-    }
-}
-*/
-
 export async function run_deploy() {
     checkClusterContext();
     await setKubectlPath();
@@ -344,20 +334,12 @@ export async function run_deploy() {
     }
 }
 
-//run_deploy().catch(core.setFailed);
-
-function delay(ms: number) {
-    return new Promise( resolve => setTimeout(resolve, ms) );
-}
-
 async function run(){
+    console.log('Starting the run function')
     await run_set_context().catch(core.setFailed);
-    console.log('wait start');
-    await delay(300);
-    console.log('wait end');
+    console.log('Finished set context function')
     await run_create_secret().catch(core.setFailed);
     await run_deploy().catch(core.setFailed);
-    console.log('3');
 }
 
 run().catch(core.setFailed);
