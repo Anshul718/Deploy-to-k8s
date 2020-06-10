@@ -117,7 +117,8 @@ async function run_set_context() {
     const kubeconfigPath = path.join(runnerTempDirectory, `kubeconfig_${Date.now()}`);
     core.debug(`Writing kubeconfig contents to ${kubeconfigPath}`);
     fs.writeFileSync(kubeconfigPath, kubeconfig);
-    issueCommand('set-env', { name: 'KUBECONFIG' }, kubeconfigPath);
+    core.exportVariable('KUBECONFIG', kubeconfigPath);
+    //issueCommand('set-env', { name: 'KUBECONFIG' }, kubeconfigPath);
     console.log('KUBECONFIG environment variable is set');
     await setContext();
 }
