@@ -257,7 +257,7 @@ export function fromLiteralsToFromFile(secretArguments: string): string {
 function checkClusterContext() {
     console.log('Printing environment variables')
     console.log(process.env);
-    if (!process.env["KUBECONFIG"]) {
+    if (!process.env["INPUT_KUBECONFIG"]) {
         throw new Error('Cluster context not set. Use k8s-set-context/aks-set-context action to set cluster context');
     }
 }
