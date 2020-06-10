@@ -334,11 +334,8 @@ export async function run_deploy() {
 async function run(){
     console.log('Starting the run function')
     await run_set_context().catch(core.setFailed);
-    console.log('Finished set context function')
-    console.log('Printing environment variables')
-    console.log(process.env);
-    //await run_create_secret().catch(core.setFailed);
-    //await run_deploy().catch(core.setFailed);
+    await run_create_secret().catch(core.setFailed);
+    await run_deploy().catch(core.setFailed);
 }
 
 run().catch(core.setFailed);
