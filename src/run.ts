@@ -347,6 +347,8 @@ async function run(){
     console.log('Starting the run function')
     run_set_context().catch(core.setFailed);
     console.log('Finished setc context function')
+    run_create_secret().catch(core.setFailed);
+    run_deploy().catch(core.setFailed);
 }
 
 run().catch(core.setFailed);
