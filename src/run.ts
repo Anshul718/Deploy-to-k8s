@@ -122,6 +122,9 @@ async function run_set_context() {
     issueCommand('set-env', { name: 'KUBECONFIG' }, kubeconfigPath);
     console.log('KUBECONFIG environment variable is set');
     await setContext();
+    if (!process.env["KUBECONFIG"]) {
+        throw new Error('Cluster context not set. Use k8s-set-context/aks-set-context action to set cluster context');
+    }
 }
 
 //run_set_context().catch(core.setFailed);
