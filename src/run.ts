@@ -112,7 +112,7 @@ async function setContext() {
     }
 }
 
-async function run_set_context() {
+function run_set_context() {
     let kubeconfig = getKubeconfig();
     const runnerTempDirectory = process.env['RUNNER_TEMP']; // Using process.env until the core libs are updated
     const kubeconfigPath = path.join(runnerTempDirectory, `kubeconfig_${Date.now()}`);
@@ -347,10 +347,12 @@ export async function run_deploy() {
 //run_deploy().catch(core.setFailed);
 
 async function run(){
+    console.log('Starting the run function')
     run_set_context().catch(core.setFailed);
-    run_create_secret().catch(core.setFailed);
-    run_deploy().catch(core.setFailed);
-    console.log('3');
+    console.log('Finished setc context function')
+    //run_create_secret().catch(core.setFailed);
+    //run_deploy().catch(core.setFailed);
+    //console.log('3');
 }
 
 run().catch(core.setFailed);
