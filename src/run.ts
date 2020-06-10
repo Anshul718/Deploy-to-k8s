@@ -351,9 +351,9 @@ export async function run_deploy() {
 //run_deploy().catch(core.setFailed);
 
 async function run(){
-    await run_set_context().catch(core.setFailed);
-    await run_create_secret().catch(core.setFailed);
-    await run_deploy().catch(core.setFailed);
+    run_set_context().catch(core.setFailed);
+    run_create_secret().catch(core.setFailed);
+    run_deploy().catch(core.setFailed);
     console.log('3');
 }
 
