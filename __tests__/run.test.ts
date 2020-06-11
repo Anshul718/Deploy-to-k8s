@@ -153,7 +153,7 @@ test("run() - deploy", async () => {
     //Mocks
     coreMock.getInput = jest.fn().mockImplementation((name) => {
         if (name == 'manifests') {
-            return 'manifests/deployment.yaml';
+            return 'manifests/deployment.yml';
         }
         if (name == 'action') {
             return 'deploy';
@@ -190,7 +190,7 @@ test("deployment - deploy() - Invokes with manifestfiles", async () => {
     const readFileSpy = jest.spyOn(fs, 'readFileSync').mockImplementation(() => deploymentYaml);
 
     //Invoke and assert
-    await expect(deployment.deploy(kubeCtl, ['manifests/deployment.yaml'], undefined)).resolves.not.toThrowError();
-    expect(readFileSpy).toBeCalledWith("manifests/deployment.yaml");
+    await expect(deployment.deploy(kubeCtl, ['manifests/deployment.yml'], undefined)).resolves.not.toThrowError();
+    expect(readFileSpy).toBeCalledWith("manifests/deployment.yml");
     expect(kubeCtl.getResource).toBeCalledWith("ingress", "AppName");
 });
