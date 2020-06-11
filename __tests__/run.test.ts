@@ -173,7 +173,7 @@ test("run() - deploy", async () => {
 
     //Invoke and assert
     await expect(action.run_deploy()).resolves.not.toThrow();
-    expect(deploySpy).toBeCalledWith({ "ignoreSSLErrors": false, "kubectlPath": 'validPath', "namespace": "v1.18.0" }, ['manifests/deployment.yaml'], undefined);
+    expect(deploySpy).toBeCalledWith({ "ignoreSSLErrors": false, "kubectlPath": 'validPath', "namespace": "v1.18.0" }, ['manifests/deployment.yml'], undefined);
     deploySpy.mockRestore();
 });
 
