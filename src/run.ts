@@ -312,7 +312,7 @@ export async function run_deploy() {
     }
 }
 
-async function run(){
+export async function run(){
     await run_set_context().catch(core.setFailed);
     await run_create_secret().catch(core.setFailed);
     await run_deploy().catch(core.setFailed);
