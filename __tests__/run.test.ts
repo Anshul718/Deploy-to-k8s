@@ -172,7 +172,7 @@ test("run() - deploy", async () => {
     const deploySpy = jest.spyOn(deployment, 'deploy').mockImplementation();
 
     //Invoke and assert
-    await expect(action.run()).resolves.not.toThrow();
+    await expect(action.run_deploy()).resolves.not.toThrow();
     expect(deploySpy).toBeCalledWith({ "ignoreSSLErrors": false, "kubectlPath": 'validPath', "namespace": "v1.18.0" }, ['manifests/deployment.yaml'], undefined);
     deploySpy.mockRestore();
 });
