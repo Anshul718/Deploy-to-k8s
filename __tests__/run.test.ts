@@ -39,7 +39,7 @@ test("setKubectlPath() - install a particular version", async () => {
     fileUtility.chmodSync = jest.fn();
 
     //Invoke and assert
-    await expect(action.run()).resolves.not.toThrow();
+    await expect(action.run_deploy()).resolves.not.toThrow();
     expect(toolCacheMock.find).toBeCalledWith('kubectl', kubectlVersion);
     expect(toolCacheMock.downloadTool).toBeCalledWith(getkubectlDownloadURL(kubectlVersion));
 });
@@ -55,7 +55,7 @@ test("setKubectlPath() - install a latest version", async () => {
     fileUtility.chmodSync = jest.fn();
 
     //Invoke and assert
-    await expect(action.run()).resolves.not.toThrow();
+    await expect(action.run_deploy()).resolves.not.toThrow();
     expect(toolCacheMock.find).toBeCalledWith('kubectl', kubectlVersion);
     expect(toolCacheMock.downloadTool).toBeCalledWith(stableVersionUrl);
 
@@ -71,7 +71,7 @@ test("setKubectlPath() - kubectl version already avilable", async () => {
     fileUtility.chmodSync = jest.fn();
 
     //Invoke and assert
-    await expect(action.run()).resolves.not.toThrow();
+    await expect(action.run_deploy()).resolves.not.toThrow();
     expect(toolCacheMock.find).toBeCalledWith('kubectl', kubectlVersion);
     expect(toolCacheMock.downloadTool).toBeCalledTimes(0);
 });
@@ -82,7 +82,7 @@ test("setKubectlPath() - kubectl version not provided and kubectl avilable on ma
     ioMock.which = jest.fn().mockReturnValue('validPath');
 
     //Invoke and assert
-    await expect(action.run()).resolves.not.toThrow();
+    await expect(action.run_deploy()).resolves.not.toThrow();
     expect(ioMock.which).toBeCalledWith('kubectl', false);
     expect(toolCacheMock.downloadTool).toBeCalledTimes(0);
 });
@@ -94,7 +94,7 @@ test("setKubectlPath() - kubectl version not provided and kubectl not avilable o
     toolCacheMock.findAllVersions = jest.fn().mockReturnValue(undefined);
 
     //Invoke and assert
-    await expect(action.run()).rejects.toThrowError();
+    await expect(action.run_deploy()).rejects.toThrowError();
     expect(ioMock.which).toBeCalledWith('kubectl', false);
 });
 
@@ -114,7 +114,7 @@ test("run() - action not provided", async () => {
     fileUtility.chmodSync = jest.fn();
 
     //Invoke and assert
-    await expect(action.run()).resolves.not.toThrow();
+    await expect(action.run_deploy()).resolves.not.toThrow();
     expect(coreMock.setFailed).toBeCalledWith('Not a valid action. The allowed actions are deploy, promote, reject');
 });
 
@@ -137,7 +137,7 @@ test("run() - deploy - Manifiest not provided", async () => {
     fileUtility.chmodSync = jest.fn();
 
     //Invoke and assert
-    await expect(action.run()).resolves.not.toThrow();
+    await expect(action.run_deploy()).resolves.not.toThrow();
     expect(coreMock.setFailed).toBeCalledWith('No manifests supplied to deploy');
 });
 
