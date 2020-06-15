@@ -4,7 +4,8 @@
     "private": true,
     "main": "lib/run.js",
     "scripts": {
-        "build": "tsc --outDir .\\lib\\ --rootDir .\\src\\"
+        "build": "tsc --outDir .\\lib\\ --rootDir .\\src\\",
+        "test": "jest"
     },
     "keywords": [
         "actions",
