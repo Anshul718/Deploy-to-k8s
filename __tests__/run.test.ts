@@ -16,12 +16,28 @@ import { fromLiteralsToFromFile } from "../src/run"
 //import * as path from 'path';
 
 
-// -------------------------------------------------- Create Secret tests ------------------------------------
 const fileUtility = mocked(fs, true);
+
+var path = require('path');
+
+const coreMock = mocked(core, true);
+const ioMock = mocked(io, true);
+
+const toolCacheMock = mocked(toolCache, true);
+//const fileUtility = mocked(fs, true);
+
+
+const stableVersionUrl = 'https://storage.googleapis.com/kubernetes-release/release/stable.txt';
+
+var deploymentYaml = "";
 
 beforeAll(() => {
     process.env['RUNNER_TEMP'] = '/home/runner/work/_temp';
+    deploymentYaml = fs.readFileSync(path.join(__dirname, 'manifests', 'deployment.yml'), 'utf8');
+    process.env["KUBECONFIG"] = 'kubeConfig';
 })
+
+// -------------------------------------------------- Create Secret tests ------------------------------------
 
 test('Literal converted to file', () => {
     var filePath = path.join(process.env['RUNNER_TEMP'], "key1");
@@ -186,23 +202,7 @@ test('Special characters in value', () => {
 })
 
 // -------------------------------------------------- Deploy Tests -------------------------------------------
-var path = require('path');
 
-const coreMock = mocked(core, true);
-const ioMock = mocked(io, true);
-
-const toolCacheMock = mocked(toolCache, true);
-//const fileUtility = mocked(fs, true);
-
-
-const stableVersionUrl = 'https://storage.googleapis.com/kubernetes-release/release/stable.txt';
-
-var deploymentYaml = "";
-
-beforeAll(() => {
-    deploymentYaml = fs.readFileSync(path.join(__dirname, 'manifests', 'deployment.yml'), 'utf8');
-    process.env["KUBECONFIG"] = 'kubeConfig';
-})
 
 test("setKubectlPath() - install a particular version", async () => {
     const kubectlVersion = 'v1.18.0'
@@ -318,7 +318,6 @@ test("run() - deploy - Manifiest not provided", async () => {
 
 test("deployment - deploy() - Invokes with no manifestfiles", async () => {
     const kubeCtl: jest.Mocked<Kubectl> = new Kubectl("") as any;
-
     //Invoke and assert
     await expect(deployment.deploy(kubeCtl, [], undefined)).rejects.toThrowError('ManifestFileNotFound');
 });
