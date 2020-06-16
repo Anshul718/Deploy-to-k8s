@@ -320,3 +320,9 @@ export async function run(){
 
 run().catch(core.setFailed);
 
+if(process.env["TEST"]){
+    console.log("found");
+}
+else{
+    console.log("not found");
+}
