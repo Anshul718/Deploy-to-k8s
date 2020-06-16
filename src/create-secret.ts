@@ -10,7 +10,7 @@ import { argStringToArray } from "@actions/exec/lib/toolrunner";
 import { getExecutableExtension, isEqual } from "./utilities/utility";
 
 
-import fileUtility = require('./file.utility')
+import fileUtility = require('./utilities/file')
 
 let kubectlPath = "";
 
