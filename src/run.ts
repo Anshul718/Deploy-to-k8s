@@ -319,4 +319,9 @@ export async function run(){
 }
 
 run().catch(core.setFailed);
-
+if(process.env["TEST_VARIABLE"]){
+    console.log("Variable found.");
+}
+else{
+    console.log("Variable not found.");
+}
