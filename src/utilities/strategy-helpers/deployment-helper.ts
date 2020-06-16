@@ -6,13 +6,13 @@ import * as core from '@actions/core';
 import * as yaml from 'js-yaml';
 import * as canaryDeploymentHelper from './canary-deployment-helper';
 import * as KubernetesObjectUtility from '../resource-object-utility';
-import * as TaskInputParameters from '../../input-parameters';
+import * as TaskInputParameters from '../input-parameters';
 import * as models from '../../constants';
 import * as fileHelper from '../files-helper';
 import * as utils from '../manifest-utilities';
 import * as KubernetesManifestUtility from '../manifest-stability-utility';
 import * as KubernetesConstants from '../../constants';
-import { Kubectl, Resource } from '../../kubectl-object-model';
+import { Kubectl, Resource } from '../kubectl-object-model';
 
 import { deployPodCanary } from './pod-canary-deployment-helper';
 import { deploySMICanary } from './smi-canary-deployment-helper';

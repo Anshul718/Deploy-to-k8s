@@ -8,7 +8,7 @@ import * as toolCache from '@actions/tool-cache';
 import { downloadKubectl, getStableKubectlVersion } from "./utilities/kubectl-util";
 import { getExecutableExtension, isEqual } from "./utilities/utility";
 
-import { Kubectl } from './kubectl-object-model';
+import { Kubectl } from './utilities/kubectl-object-model';
 import { deploy } from './utilities/strategy-helpers/deployment-helper';
 import { promote } from './actions/promote';
 import { reject } from './actions/reject';

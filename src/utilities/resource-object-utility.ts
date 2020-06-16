@@ -2,7 +2,7 @@
 import * as fs from 'fs';
 import * as core from '@actions/core';
 import * as yaml from 'js-yaml';
-import { Resource } from '../kubectl-object-model';
+import { Resource } from './kubectl-object-model';
 import { KubernetesWorkload, deploymentTypes, workloadTypes } from '../constants';
 import { StringComparer, isEqual } from './string-comparison';
 

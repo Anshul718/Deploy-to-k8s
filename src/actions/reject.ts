@@ -2,9 +2,9 @@
 import * as core from '@actions/core';
 import * as canaryDeploymentHelper from '../utilities/strategy-helpers/canary-deployment-helper';
 import * as SMICanaryDeploymentHelper from '../utilities/strategy-helpers/smi-canary-deployment-helper';
-import { Kubectl } from '../kubectl-object-model';
+import { Kubectl } from '../utilities/kubectl-object-model';
 import * as utils from '../utilities/manifest-utilities';
-import * as TaskInputParameters from '../input-parameters';
+import * as TaskInputParameters from '../utilities/input-parameters';
 
 export async function reject(ignoreSslErrors?: boolean) {
     const kubectl = new Kubectl(await utils.getKubectl(), TaskInputParameters.namespace, ignoreSslErrors);

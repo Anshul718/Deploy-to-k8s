@@ -1,11 +1,11 @@
 'use strict';
 
-import { Kubectl } from '../../kubectl-object-model';
+import { Kubectl } from '../kubectl-object-model';
 import * as core from '@actions/core';
 import * as fs from 'fs';
 import * as yaml from 'js-yaml';
 
-import * as TaskInputParameters from '../../input-parameters';
+import * as TaskInputParameters from '../input-parameters';
 import * as fileHelper from '../files-helper';
 import * as helper from '../resource-object-utility';
 import * as canaryDeploymentHelper from './canary-deployment-helper';

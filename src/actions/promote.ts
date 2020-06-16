@@ -5,9 +5,9 @@ import * as deploymentHelper from '../utilities/strategy-helpers/deployment-help
 import * as canaryDeploymentHelper from '../utilities/strategy-helpers/canary-deployment-helper';
 import * as SMICanaryDeploymentHelper from '../utilities/strategy-helpers/smi-canary-deployment-helper';
 import * as utils from '../utilities/manifest-utilities';
-import * as TaskInputParameters from '../input-parameters';
+import * as TaskInputParameters from '../utilities/input-parameters';
 
-import { Kubectl } from '../kubectl-object-model';
+import { Kubectl } from '../utilities/kubectl-object-model';
 
 export async function promote(ignoreSslErrors?: boolean) {
     const kubectl = new Kubectl(await utils.getKubectl(), TaskInputParameters.namespace, ignoreSslErrors);
