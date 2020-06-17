@@ -178,6 +178,20 @@ async function deleteSecret(namespace: string, secretName: string) {
     core.debug(`Deleting ${secretName} if already exist.`);
 }
 
+function getContainerRegistryUrl(): string {
+    const images = core.getInput('images').split('\n');
+    if (!!images && images.length > 0) {
+        const image = images[0];
+        let imageName = image.split(':')[0];
+        let server = imageName.split('/')[0];
+        return server;
+    }
+    else {
+        const manifests = core.getInput('manifests').split('\n');
+        return manifests[0];
+    }
+}
+
 function getDockerSecretArguments(secretName: string): string[] {
     const userName = core.getInput('container-registry-username');
     const password = core.getInput('container-registry-password');
@@ -319,10 +333,3 @@ export async function run(){
 }
 
 run().catch(core.setFailed);
-
-if(process.env["TEST"]){
-    console.log("found");
-}
-else{
-    console.log("not found");
-}
